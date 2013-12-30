@@ -41,7 +41,8 @@ JC = javac
 CLASSES = \
 	AcronymMaker.java \
 	Main.java \
-	ConsoleIO.java
+	ConsoleIO.java \
+	Acronym.java
 
 
 #
