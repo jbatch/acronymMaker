@@ -18,8 +18,13 @@ public class AcronymMaker
 		generateWordlist();
 		findAcronyms();
 		//printWordList(possibleAcronyms);
-		System.out.println("Size: " + acronymList.size());
-		System.out.println(acronymList.get(0).toString());
+		//System.out.println("Size: " + acronymList.size());
+		//System.out.println(acronymList.get(0).toString());
+	}
+	
+	public ArrayList<Acronym> getAcronymList()
+	{
+		return acronymList;
 	}
 	
 	private void generatePossibleAcronyms()
@@ -64,16 +69,12 @@ public class AcronymMaker
 	
 	private void findAcronyms()
 	{
-		boolean pass = false, wordFound = false, fullAcronym;
+		boolean fullAcronym;
 		char []charArray;
 		ArrayList<ArrayList<String>> possibleWords;
-		ArrayList<String> tempListRemaining, tempListAdded = new ArrayList<String>();
-		int wordsAdded;
 	
 		for(String word:wordList)
 		{
-			
-			wordsAdded = 0;
 			possibleWords = new ArrayList<ArrayList<String>>();
 			
 			for(int i = 0; i < word.length(); i++)
@@ -81,26 +82,17 @@ public class AcronymMaker
 				possibleWords.add(new ArrayList<String>());
 			}
 			
-			tempListRemaining = possibleAcronyms;
 			charArray = word.toCharArray();
-			pass = false;
 			
 			for(int i = 0; i < word.length(); i++)
 			{
-				wordFound = false;
-				for(String s:tempListRemaining)
+				for(String s:possibleAcronyms)
 				{
 					if(s.charAt(0) == charArray[i])
 					{
-						wordFound = true;
-						wordsAdded++;
-						//tempListAdded.add(s);
 						possibleWords.get(i).add(s);
-						//System.out.println("Word: " + word + " i: " + i + " s:" + s);
 					}
 				}
-	
-				
 			}
 			
 			fullAcronym = true;

@@ -2,6 +2,7 @@ public class Main
 {
 	public static void main(String []argv)
 	{
-		AcronymMaker acroynmMaker = new AcronymMaker();
+		AcronymMenu acronymMenu = new AcronymMenu();
+		//AcronymMaker acroynmMaker = new AcronymMaker();
 	}
 }

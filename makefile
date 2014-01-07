@@ -42,7 +42,8 @@ CLASSES = \
 	AcronymMaker.java \
 	Main.java \
 	ConsoleIO.java \
-	Acronym.java
+	Acronym.java \
+	AcronymMenu.java
 
 
 #
