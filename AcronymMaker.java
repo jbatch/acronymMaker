@@ -69,7 +69,8 @@ public class AcronymMaker
 	
 	private void findAcronyms()
 	{
-		boolean fullAcronym;
+		int letterCount = 0;
+		boolean validAcronym;
 		char []charArray;
 		ArrayList<ArrayList<String>> possibleWords;
 	
@@ -95,16 +96,36 @@ public class AcronymMaker
 				}
 			}
 			
-			fullAcronym = true;
-			for(ArrayList<String> a:possibleWords) // Check if any wordLists have no words added
+			validAcronym = true;
+			for(ArrayList<String> a:possibleWords) // Check if any wordLists are valid
 			{
 				if(a.size() == 0)
 				{
-					fullAcronym = false;
+					validAcronym = false;
 				}
 			}
 			
-			if(fullAcronym)
+			if(validAcronym)
+			{
+				for(int i = 0; i < charArray.length;i++)
+				{
+					letterCount = 0;
+					for(int j = 0; j < charArray.length; j++)
+					{
+						if(charArray[j] == charArray[i])
+						{
+							letterCount++;
+						}
+					}
+					if(letterCount > possibleWords.get(i).size())
+					{
+						validAcronym = false;
+					}
+				}
+			}
+			
+			
+			if(validAcronym)
 			{
 				acronymList.add(new Acronym(word, possibleWords));
 			}
