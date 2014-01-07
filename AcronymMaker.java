@@ -6,17 +6,20 @@ import java.io.IOException;
 public class AcronymMaker
 {
 	ArrayList<String> wordList, possibleAcronyms;
-	ArrayList<Acronym> acroynmList;
+	ArrayList<Acronym> acronymList;
 
 	public AcronymMaker()
 	{
 		wordList = new ArrayList<String>();
 		possibleAcronyms = new ArrayList<String>();
-		acroynmList = new ArrayList<Acronym>();
+		acronymList = new ArrayList<Acronym>();
 	
 		generatePossibleAcronyms();
 		generateWordlist();
 		findAcronyms();
+		//printWordList(possibleAcronyms);
+		System.out.println("Size: " + acronymList.size());
+		System.out.println(acronymList.get(0).toString());
 	}
 	
 	private void generatePossibleAcronyms()
@@ -61,15 +64,27 @@ public class AcronymMaker
 	
 	private void findAcronyms()
 	{
-		boolean pass = false, wordFound = false;
+		boolean pass = false, wordFound = false, fullAcronym;
 		char []charArray;
+		ArrayList<ArrayList<String>> possibleWords;
 		ArrayList<String> tempListRemaining, tempListAdded = new ArrayList<String>();
+		int wordsAdded;
 	
 		for(String word:wordList)
 		{
+			
+			wordsAdded = 0;
+			possibleWords = new ArrayList<ArrayList<String>>();
+			
+			for(int i = 0; i < word.length(); i++)
+			{
+				possibleWords.add(new ArrayList<String>());
+			}
+			
 			tempListRemaining = possibleAcronyms;
 			charArray = word.toCharArray();
 			pass = false;
+			
 			for(int i = 0; i < word.length(); i++)
 			{
 				wordFound = false;
@@ -78,11 +93,43 @@ public class AcronymMaker
 					if(s.charAt(0) == charArray[i])
 					{
 						wordFound = true;
-						tempListRemaining.remove(s);
-						tempListAdded.add(s);
+						wordsAdded++;
+						//tempListAdded.add(s);
+						possibleWords.get(i).add(s);
+						//System.out.println("Word: " + word + " i: " + i + " s:" + s);
 					}
 				}
+	
+				
 			}
+			
+			fullAcronym = true;
+			for(ArrayList<String> a:possibleWords) // Check if any wordLists have no words added
+			{
+				if(a.size() == 0)
+				{
+					fullAcronym = false;
+				}
+			}
+			
+			if(fullAcronym)
+			{
+				acronymList.add(new Acronym(word, possibleWords));
+			}
+	
+		}
+	}
+	
+	private void printWordList(ArrayList<String> list)
+	{
+		for(String s:list)
+		{
+			System.out.println(s);
 		}
 	}
 }
+
+
+
+
+
